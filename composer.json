@@ -1,0 +1,16 @@
+{
+    "name": "vendor/devenv",
+    "version": "0.0.1",
+    "authors": [
+        {
+            "name": "Oleg Lobach",
+            "email": "oleg@lobach.info"
+        }
+    ],
+    "type": "vagrant-env",
+    "minimum-stability": "dev",
+    "require": {
+        "zeus/installer": "*"
+    },
+    "target-dir": ""
+}
