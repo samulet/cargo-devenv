@@ -2,7 +2,7 @@ class nginx::install {
   package { "nginx":
     name   => "nginx",
     ensure => present,
-    require => Exec["/usr/bin/aptitude update"],
+    require => Exec["apt_update"],
   }
 
   service { "nginx":

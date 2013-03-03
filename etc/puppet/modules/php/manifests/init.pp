@@ -1,23 +1,25 @@
 class php {
 
-  exec { "add_php_repository":
-    command => "/usr/bin/add-apt-repository ppa:ondrej/php5",
-    before => Exec["/usr/bin/aptitude update"],
-    require => Package["python-software-properties"];
-  }
+  apt::ppa { 'ppa:ondrej/php5': }
 
   package {
     "php5-cli":
       ensure => present,
-      require => Exec["add_php_repository"];
+      require => Apt::Ppa['ppa:ondrej/php5'];
     "curl":
       ensure => present;
     "xml-core":
       ensure => present;
     "php5-curl":
       ensure => present,
-      require => Exec["add_php_repository"];
+      require => Apt::Ppa['ppa:ondrej/php5'];
     "php5-fpm":
+      ensure => present,
+      require => Package["php5-cli"];
+    "php5-dev":
+      ensure => present,
+      require => Package["php5-cli"];
+    "php-pear":
       ensure => present,
       require => Package["php5-cli"];
     "php5-xdebug":
@@ -31,6 +33,15 @@ class php {
     ensure => running,
     hasrestart => true,
     require => Package["php5-fpm"],
+  }
+
+  exec { "php5-mongo":
+    command => "/usr/bin/pecl install mongo",
+    unless => '/usr/bin/test -n "`pecl list|grep mongo`"',
+    require => [
+        Package["make", "php5-dev", "php-pear"], 
+        Anchor['mongodb::install::end']
+    ];
   }
 
   file { "/etc/php5/cli/php.ini":
@@ -104,8 +115,19 @@ class php {
   file { "/etc/php5/mods-available/pdo.ini":
     ensure => present,
     content => template("php/etc/php5/mods-available/pdo.ini.erb"),
-    purge => true,
     require => Package["php5-fpm"],
+  }
+
+  file { "/etc/php5/mods-available/mongo.ini":
+    ensure => present,
+    content => 'extension=mongo.so',
+    require => Exec["php5-mongo", "empty_php_conf_dir"],
+  }
+
+  file { "/etc/php5/conf.d/40-mongo.ini":
+    ensure => "link",
+    target => "../mods-available/mongo.ini",
+    require => File["/etc/php5/mods-available/mongo.ini"],
   }
 
   file { "/etc/php5/conf.d/30-xdebug.ini":
