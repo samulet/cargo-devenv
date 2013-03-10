@@ -127,18 +127,21 @@ class php {
   file { "/etc/php5/conf.d/40-mongo.ini":
     ensure => "link",
     target => "../mods-available/mongo.ini",
+    notify => Service["php5-fpm"],
     require => File["/etc/php5/mods-available/mongo.ini"],
   }
 
   file { "/etc/php5/conf.d/30-xdebug.ini":
     ensure => "link",
     target => "../mods-available/xdebug.ini",
+    notify => Service["php5-fpm"],
     require => [File["/etc/php5/mods-available/xdebug.ini"], Exec["empty_php_conf_dir"]],
   }
 
   file { "/etc/php5/conf.d/20-curl.ini":
     ensure => "link",
     target => "../mods-available/curl.ini",
+    notify => Service["php5-fpm"],
     require => [File["/etc/php5/mods-available/curl.ini"], Exec["empty_php_conf_dir"]],
   }
 
