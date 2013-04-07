@@ -1,6 +1,6 @@
 {
-    "name": "vendor/devenv",
-    "version": "0.0.1",
+    "name": "mashaimedvedi/cargo-devenv",
+    "version": "0.1.0",
     "authors": [
         {
             "name": "Oleg Lobach",
@@ -10,7 +10,7 @@
     "type": "vagrant-env",
     "minimum-stability": "dev",
     "require": {
-        "zeus/installer": "*"
+        "yassa/vagrant-installer": "*"
     },
     "target-dir": ""
 }
