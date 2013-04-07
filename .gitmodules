@@ -1,0 +1,3 @@
+[submodule "etc/puppet/modules/composer"]
+	path = etc/puppet/modules/composer
+	url = git@github.com:willdurand/puppet-composer.git
