@@ -1,13 +1,13 @@
 class site::cargo {
 
-  file { "/etc/nginx/sites-available/cargo.local":
+  file { "/etc/nginx/sites-available/cargo":
       ensure  => present,
       owner   => root,
       group   => root,
       mode    => 644,
-      source  => "puppet:///modules/site/etc/nginx/sites-available/cargo.local",
+      content  => template("site/nginx/sites-available/cargo.erb"),
       require => Package["nginx"],
   }
 
-  nginx::sites::site { "cargo.local" : ensure => present }
+  nginx::sites::site { "cargo" : ensure => present }
 }

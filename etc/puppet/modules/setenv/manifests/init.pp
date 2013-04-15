@@ -56,9 +56,4 @@ class setenv {
     content => template("setenv/etc/hosts.erb"),
   }
 
-  file { "/etc/hostname":
-    ensure => present,
-    content => "cargo.local",
-  }
-
 }

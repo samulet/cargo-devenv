@@ -1,23 +1,24 @@
-node default {
+$project_root = "/var/www/cargo"
 
-  # Настройки пакетов
-  include php
-  include nginx
+# Set paths to use in exec commands
+Exec { path => '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin' }
 
-  # Настройка системного окружения
-  include setenv
-
-  # Настройки сайта
-  include site
-
-  class { 'apt': }
-
-  include stdlib
-
-  include mongodb
-  mongodb::mongod {
-    "mdb01":
-      mongod_instance => "mdb01"
-  }
-
+class { 'apt':
+	always_apt_update => true
 }
+
+# Modules to include.
+include repository
+include dependencies
+
+include webserver
+include composer
+include zmq
+include phpunit
+
+# Настройка системного окружения
+#include setenv
+
+include stdlib
+
+include mongo

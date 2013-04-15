@@ -1,3 +1,9 @@
 [submodule "etc/puppet/modules/composer"]
 	path = etc/puppet/modules/composer
 	url = git@github.com:willdurand/puppet-composer.git
+[submodule "etc/puppet/modules/php"]
+	path = etc/puppet/modules/php
+	url = git@github.com:example42/puppet-php.git
+[submodule "etc/puppet/modules/puppi"]
+	path = etc/puppet/modules/puppi
+	url = git@github.com:example42/puppi.git
