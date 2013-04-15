@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name cargo.dev;
+    server_name <%= fqdn %>;
 
     root <%= project_root %>;
     index  index.php index.html index.htm;
