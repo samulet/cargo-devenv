@@ -23,4 +23,8 @@ class dependencies {
 		ensure => installed,
 		require => Class['apt::update'],
 	}
+	package { "htop":
+		ensure => installed,
+		require => Class['apt::update'],
+	}
 }
