@@ -17,7 +17,7 @@ include zmq
 include phpunit
 
 # Настройка системного окружения
-#include setenv
+include setenv
 
 include stdlib
 
