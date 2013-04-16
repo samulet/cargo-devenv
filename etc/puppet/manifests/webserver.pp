@@ -19,4 +19,13 @@ class webserver {
         hasrestart => true,
         require => Package["php5-fpm"],
     }
+
+    site::php_ini { "php-cli":
+        target => "${php::config_dir}/cli/php.ini",
+        require => Package["php5"],
+    }
+    site::php_ini { "php-fpm":
+        target => "${php::config_dir}/fpm/php.ini",
+        require => Package["php5-fpm"],
+    }
 }
