@@ -27,4 +27,16 @@ class dependencies {
 		ensure => installed,
 		require => Class['apt::update'],
 	}
+    package { "augeas-tools":
+		ensure => installed,
+		require => Class['apt::update'],
+    }
+    package { "libaugeas-dev":
+		ensure => installed,
+		require => Class['apt::update'],
+    }
+    package { "libaugeas-ruby":
+		ensure => installed,
+		require => Class['apt::update'],
+    }
 }
