@@ -15,10 +15,6 @@ class dependencies {
 		ensure => installed,
 		require => Class['apt::update'],
 	}
-	package {"python-software-properties":
-		ensure => installed,
-		require => Class['apt::update'],
-	}
 	package {"vim":
 		ensure => installed,
 		require => Class['apt::update'],

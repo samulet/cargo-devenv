@@ -9,7 +9,27 @@ class webserver {
 
     package {"php5-fpm":
       ensure => present,
-      require => Exec['php54_repository'];
+      require => [
+            Apt::Ppa['ppa:ondrej/php5'],
+      ];
+    }
+
+    exec { "/usr/bin/aptitude -y install php5-dev":
+      logoutput => 'on_failure',
+      require => [
+            Apt::Ppa['ppa:ondrej/php5'],
+      ],
+      before => [
+            Php::Pecl::Module['pear.zero.mq/zmq-beta'],
+            Php::Pecl::Module['xdebug'],
+            Package['php5', 'php5-fpm', 'php-pear', 'php5-dev'],
+      ];
+    }
+    
+    apt::ppa {'ppa:ondrej/php5':
+        before => [
+            Package['php5', 'php5-fpm', 'php-pear', 'php5-dev'],
+        ]
     }
 
     service { "php5-fpm":

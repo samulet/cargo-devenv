@@ -8,8 +8,6 @@ class { 'apt':
 	always_apt_update => true
 }
 
-# Modules to include.
-include repository
 include dependencies
 
 include webserver

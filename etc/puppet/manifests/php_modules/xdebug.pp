@@ -3,8 +3,9 @@ class php_modules::xdebug {
         service => 'php5-fpm',
 		require => [
 			Exec['pear-config-set-auto_discover'],
-			Exec['php54_repository']
+      Package['php'],
 		],
+        use_package     => "no",
 		before => [
 			Php::Augeas["xdebug-remote_enable"],
 			Php::Augeas["xdebug-remote_host"],

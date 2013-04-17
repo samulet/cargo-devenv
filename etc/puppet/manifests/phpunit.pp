@@ -8,6 +8,6 @@ class phpunit {
 		service     => 'php5-fpm',
 		preferred_state => "beta",
 		repository  => "pear.phpunit.de",
-		require     => [Package['php'],Exec['php54_repository']]
+		require     => [Package['php'],]
 	}
 }

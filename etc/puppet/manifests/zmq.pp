@@ -6,7 +6,11 @@ class zmq {
 	php::pecl::module { 'pear.zero.mq/zmq-beta':
 		use_package     => "no",
 		preferred_state => "beta",
-		require         => [Exec['pear-config-set-auto_discover'],Package['libzmq-dev']],
+		require         => [
+			Exec['pear-config-set-auto_discover'],
+			Package['libzmq-dev'],
+			Package['php5-fpm'],
+		],
 	    service => 'php5-fpm',
 	}
 
