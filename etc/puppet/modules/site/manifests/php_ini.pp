@@ -29,6 +29,10 @@ define site::php_ini (
         entry  => 'PHP/log_errors',
         value  => 'On',
         target => $target;
+      "${name}-log_errors_max_len":
+        entry  => 'PHP/log_errors_max_len',
+        value  => '10240',
+        target => $target;
       "${name}-error_log":
         entry  => 'PHP/error_log',
         value  => "$php_error_log",
