@@ -5,7 +5,7 @@ $php_error_log = "/vagrant/dev/logs/php_errors.log"
 Exec { path => '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin' }
 
 class { 'apt':
-	always_apt_update => true
+    always_apt_update => true
 }
 
 include dependencies

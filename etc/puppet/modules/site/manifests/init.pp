@@ -1,3 +1,3 @@
 class site {
-  include site::cargo
+    include site::cargo
 }
