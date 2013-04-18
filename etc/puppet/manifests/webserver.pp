@@ -49,4 +49,9 @@ class webserver {
         target => "${php::config_dir}/fpm/php.ini",
         require => Package["php5-fpm"],
     }
+
+    site::fpm { "fpm-conf":
+        target => "${php::config_dir}/fpm/php-fpm.conf",
+        require => Package["php5-fpm"],
+    }
 }

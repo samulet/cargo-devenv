@@ -1,5 +1,7 @@
 $project_root = "/var/www/cargo"
-$php_error_log = "/vagrant/dev/logs/php_errors.log"
+$log_dir = "/vagrant/dev/logs"
+$php_error_log = "${log_dir}/php_errors.log"
+$fpm_socket = '/var/run/php5-fpm.sock'
 
 # Set paths to use in exec commands
 Exec { path => '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin' }
