@@ -15,11 +15,13 @@ class site::cargo {
     php::augeas {
         "fpm-site-listen":
             notify => Service['php5-fpm'],
+            require => Package['php5-fpm'],
             entry  => 'www/listen',
             value  => "${fpm_socket}",
             target => $target;
         "fpm-site-catch_workers_output":
             notify => Service['php5-fpm'],
+            require => Package['php5-fpm'],
             entry  => 'www/catch_workers_output',
             value  => 'yes',
             target => $target;
