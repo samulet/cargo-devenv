@@ -2,7 +2,7 @@ server {
     listen 80;
     server_name <%= fqdn %>;
 
-    root <%= project_root %>;
+    root <%= document_root %>;
     index  index.php index.html index.htm;
 
     location / {
@@ -14,6 +14,6 @@ server {
         include         fastcgi_params;
         fastcgi_pass    unix:<%= fpm_socket %>;
         fastcgi_index   index.php;
-        fastcgi_param   SCRIPT_FILENAME <%= project_root %>/public$fastcgi_script_name;
+        fastcgi_param   SCRIPT_FILENAME <%= document_root %>$fastcgi_script_name;
     }
 }
