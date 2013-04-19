@@ -1,5 +1,6 @@
 class mongo {
     include mongodb
+    include php_modules::mongo
 
     # Это нужно только для обхода ошибки старта сервиса mongodb при отсутствии init-скрипта
     exec {"mongodb-init":
@@ -11,4 +12,5 @@ class mongo {
         "mdb01":
             mongod_instance => "mdb01"
     }
+
 }
