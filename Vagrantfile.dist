@@ -72,6 +72,8 @@ Vagrant.configure("2") do |config|
   #   puppet.manifest_file  = "base.pp"
   # end
 
+  config.vm.provision :shell, :inline => "sudo apt-get update && sudo apt-get install puppet -y"
+
   #config.vm.provision :puppet, :options => "--verbose --debug" do |puppet|
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = "etc/puppet/manifests"

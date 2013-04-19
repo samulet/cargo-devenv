@@ -1,23 +1,24 @@
-node default {
+$project_root = "/var/www/cargo"
+$log_dir = "/vagrant/dev/logs"
+$php_error_log = "${log_dir}/php_errors.log"
+$fpm_socket = '/var/run/php5-fpm.sock'
 
-  # Настройки пакетов
-  include php
-  include nginx
+# Set paths to use in exec commands
+Exec { path => '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin' }
 
-  # Настройка системного окружения
-  include setenv
-
-  # Настройки сайта
-  include site
-
-  class { 'apt': }
-
-  include stdlib
-
-  include mongodb
-  mongodb::mongod {
-    "mdb01":
-      mongod_instance => "mdb01"
-  }
-
+class { 'apt':
+    always_apt_update => true
 }
+
+include dependencies
+
+include webserver
+include composer
+include phpunit
+
+# Настройка системного окружения
+include setenv
+
+include stdlib
+
+include mongo
