@@ -5,7 +5,7 @@ class phpunit {
     php::pear::module { "PHPUnit":
         use_package => false,
         alldeps     => true,
-        service     => 'php5-fpm',
+        service_autorestart => false,
         preferred_state => "beta",
         repository  => "pear.phpunit.de",
         require     => [
