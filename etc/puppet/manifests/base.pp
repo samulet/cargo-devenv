@@ -14,7 +14,6 @@ include dependencies
 
 include webserver
 include composer
-include zmq
 include phpunit
 
 # Настройка системного окружения

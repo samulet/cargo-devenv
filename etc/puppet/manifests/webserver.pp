@@ -15,12 +15,12 @@ class webserver {
     }
 
     exec { "/usr/bin/aptitude -y install php5-dev":
+        alias => "php5-dev::install",
         logoutput => 'on_failure',
         require => [
             Apt::Ppa['ppa:ondrej/php5'],
         ],
         before => [
-            Php::Pecl::Module['pear.zero.mq/zmq-beta'],
             Php::Pecl::Module['xdebug'],
             Package['php5', 'php5-fpm', 'php-pear', 'php5-dev'],
         ];

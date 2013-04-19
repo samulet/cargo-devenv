@@ -9,6 +9,7 @@ class zmq {
         require         => [
             Exec['pear-config-set-auto_discover'],
             Package['libzmq-dev'],
+            Alias['php5-dev::install'],
             Package['php5-fpm'],
         ],
         service => 'php5-fpm',
