@@ -7,11 +7,21 @@ class webserver {
 
     include site
 
-    package {"php5-fpm":
-        ensure => present,
-        require => [
-            Apt::Ppa['ppa:ondrej/php5'],
-        ];
+    Php {
+      package => 'php5-cli',
+    }
+
+    package {
+        "php5-fpm":
+            ensure => present,
+            require => [
+                Apt::Ppa['ppa:ondrej/php5'],
+            ];
+        "php5-cli":
+            ensure => present,
+            require => [
+                Apt::Ppa['ppa:ondrej/php5'],
+            ];
     }
 
     exec { "/usr/bin/aptitude -y install php5-dev":
@@ -22,13 +32,13 @@ class webserver {
         ],
         before => [
             Php::Pecl::Module['xdebug'],
-            Package['php5', 'php5-fpm', 'php-pear', 'php5-dev'],
+            Package['php5-cli', 'php5-fpm', 'php-pear', 'php5-dev'],
         ];
     }
 
     apt::ppa {'ppa:ondrej/php5':
         before => [
-            Package['php5', 'php5-fpm', 'php-pear', 'php5-dev'],
+            Package['php5-cli', 'php5-fpm', 'php-pear', 'php5-dev'],
         ]
     }
 
