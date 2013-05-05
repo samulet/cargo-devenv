@@ -10,20 +10,14 @@ class site::cargo {
 
     nginx::sites::site { "cargo" : ensure => present }
 
-    $target = "${php::config_dir}/fpm/pool.d/www.conf"
-
-    php::augeas {
-        "fpm-site-listen":
-            notify => Service['php5-fpm'],
-            require => Package['php5-fpm'],
-            entry  => 'www/listen',
-            value  => "${fpm_socket}",
-            target => $target;
-        "fpm-site-catch_workers_output":
-            notify => Service['php5-fpm'],
-            require => Package['php5-fpm'],
-            entry  => 'www/catch_workers_output',
-            value  => 'yes',
-            target => $target;
+    file { "/etc/php5/fpm/pool.d/www.conf":
+        ensure  => present,
+        owner   => root,
+        group   => root,
+        mode    => 644,
+        content  => template("site/php5/fpm/pool.d/www.erb"),
+        require => Package["php5-fpm"],
+        notify => Service["php5-fpm"]
     }
+
 }
