@@ -2,6 +2,9 @@ server {
     listen 80;
     server_name <%= fqdn %>;
 
+    access_log <%= log_dir %>/nginx-access.log;
+    error_log <%= log_dir %>/nginx-error.log;
+
     root <%= document_root %>;
     index  index.php index.html index.htm;
 
