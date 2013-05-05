@@ -32,7 +32,7 @@ class php_modules::xdebug {
 
     php::augeas {
         'xdebug-extension':
-            entry  => '.anon/extension',
+            entry  => '.anon/zend_extension',
             value  => 'xdebug.so',
             target => $target,
             before => Php::Augeas[
