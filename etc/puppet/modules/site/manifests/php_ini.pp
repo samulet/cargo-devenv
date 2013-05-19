@@ -63,5 +63,9 @@ define site::php_ini ( $target ) {
             entry  => 'mbstring/mbstring.func_overload',
             value  => '0',
             target => $target;
+        "${name}-session-save_path":
+            entry  => 'Session/session.save_path',
+            value  => '"/tmp"',
+            target => $target;
     }
 }
