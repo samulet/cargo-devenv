@@ -11,15 +11,33 @@ class { 'apt':
     always_apt_update => true
 }
 
-include dependencies
+node default {
+	include "dependencies"
 
-include webserver
-include composer
-include phpunit
+	include "webserver"
+	include "composer"
+	include "phpunit"
 
-# Настройка системного окружения
-include setenv
+	include "setenv"
 
-include stdlib
+	include "stdlib"
 
-include mongo
+	include "mongo"
+}
+
+class mongo {
+    include mongodb
+    include php_modules::mongo
+
+    # Это нужно только для обхода ошибки старта сервиса mongodb при отсутствии init-скрипта
+    exec {"mongodb-init":
+        command => "touch /etc/init.d/mongodb && chmod 755 /etc/init.d/mongodb",
+        before => Service["${::mongodb::params::old_servicename}"],
+    }
+
+    mongodb::mongod {
+        "mdb01":
+            mongod_instance => "mdb01"
+    }
+
+}
