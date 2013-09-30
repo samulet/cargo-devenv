@@ -21,11 +21,7 @@ node default {
 	include "setenv"
 
 	include "stdlib"
-
-	include "mongo"
-}
-
-class mongo {
+    
     include mongodb
     include php_modules::mongo
 
