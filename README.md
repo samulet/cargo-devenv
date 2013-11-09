@@ -4,14 +4,13 @@
 
 ### Устанавливаемое ПО
 
-* php 5.4 (cli, fpm)
+* php 5.5 (cli, fpm)
   * xdebug
   * curl
   * mongo
 * mongodb 2.4
 * nginx
 * composer
-* phpUnit
 * git-core
 
 ### Настройки
@@ -30,13 +29,13 @@
 
 ### Vagrantfile.dist
 
-Конфигурация предполагает, что каталог с этим проектом находится в каталоге с проектом MashaiMedvedi/cargo.
+Конфигурация предполагает, что в каталоге с этим проектом находится каталог с проектом MashaiMedvedi/cargo.
 Запуск вагранта происходит из каталога этого проекта.
 
 Схема каталогов:
 ``` text
-- cargo  <- каталог проекта MashaiMedvedi/cargo
-    - dev   <- каталог этого проекта
+- dev   <- каталог этого проекта
+	- cargo  <- каталог проекта MashaiMedvedi/cargo
 ```
 
 ### Vagrantfile.parentdir

@@ -1,0 +1,122 @@
+---
+vagrantfile-local:
+    vm:
+        box: debian-wheezy72-x64-vbox43
+        box_url: 'https://puphpet.s3.amazonaws.com/debian-wheezy72-x64-vbox43.box'
+        hostname: cargo.dev
+        network:
+            private_network: 192.168.56.101
+            forwarded_port:
+                qc1GvIyt9rQa:
+                    host: '8000'
+                    guest: '80'
+                jA2QsJ4k3hwB:
+                    host: '27017'
+                    guest: '27017'
+                wcKhE3pRAhew:
+                    host: '3306'
+                    guest: '3306'
+                aAXjpDVy9P9x:
+                    host: '9200'
+                    guest: '9200'
+        provider:
+            virtualbox:
+                modifyvm:
+                    name: cargo-dev
+                    natdnshostresolver1: on
+                    memory: '512'
+                setextradata:
+                    VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root: 1
+        provision:
+            puppet:
+                manifests_path: puppet/manifests
+                options:
+                    - --verbose
+                    - '--hiera_config /vagrant/hiera.yaml'
+                    - '--parser future'
+        synced_folder:
+            IUpC3SYZahJF:
+                id: vagrant-root
+                source: ./
+                target: /var/www/cargo
+                nfs: 'false'
+        usable_port_range: 2200..2250
+    ssh:
+        host: null
+        port: null
+        private_key_path: null
+        username: vagrant
+        guest_port: null
+        keep_alive: true
+        forward_agent: false
+        forward_x11: false
+        shell: 'bash -l'
+    vagrant:
+        host: ':detect'
+server:
+    packages:
+        - pkg-config
+        - build-essential
+        - htop
+        - vim
+    dot_files:
+        -
+            bash_aliases: null
+    _prevent_empty: ''
+nginx:
+    vhosts:
+        yly8jnGhjFWu:
+            server_name: cargo.dev
+            www_root: /var/www/cargo/public
+            listen_port: '80'
+            index_files:
+                - index.html
+                - index.php
+php:
+    version: '55'
+    composer: '1'
+    modules:
+        php:
+            - cli
+            - curl
+            - intl
+            - mcrypt
+        pear: {  }
+        pecl: {  }
+    ini:
+        display_errors: On
+        error_reporting: '-1'
+        session.save_path: /var/lib/php/session
+        error_log: /vagrant/logs/php_errors.log
+        memory_limit: -1
+    timezone: Europe/Moscow
+xdebug:
+    install: '1'
+    settings:
+        xdebug.default_enable: '1'
+        xdebug.remote_autostart: '0'
+        xdebug.remote_connect_back: '1'
+        xdebug.remote_enable: '1'
+        xdebug.remote_handler: dbgp
+        xdebug.remote_port: '9200'
+        xdebug.remote_host: 10.0.2.2
+        xdebug.idekey: PHPSTORM
+        xdebug.var_display_max_depth: '25'
+        xdebug.profiler_enable_trigger: '1'
+        xdebug.var_display_max_data: '500'
+xhprof:
+    install: '1'
+    location: /var/www/xhprof
+mysql:
+    root_password: root
+    phpmyadmin: 0
+    databases:
+        uszDdoaBkp3g:
+            grant:
+                - ALL
+            name: cargo
+            host: localhost
+            user: cargo
+            password: cargo
+            sql_file: ''
+
