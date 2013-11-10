@@ -51,6 +51,10 @@ case $::osfamily {
     |>
 
     ensure_packages( ['augeas-tools'] )
+
+    exec { "install-locale":
+      command => "sudo localedef ru_RU.UTF-8 -i ru_RU -fUTF-8"
+    }
   }
   # redhat, centos
   'redhat': {
@@ -376,8 +380,8 @@ if count($php_values['ini']) > 0 {
 
     file { $php_values['ini']['session.save_path']:
       ensure  => directory,
-      group   => 'www-data',
-      mode    => 0775,
+      group   => 'vagrant',
+      mode    => 0777,
       require => Exec["mkdir -p ${php_values['ini']['session.save_path']}"]
     }
   }
@@ -388,6 +392,24 @@ puphpet::ini { $key:
   value       => $php_values['timezone'],
   php_version => $php_values['version'],
   webserver   => $php_webserver_service
+}
+
+php::augeas {
+  'fpm-pool-www-user':
+    entry  => 'www/user',
+    value  => 'vagrant',
+    target => '/etc/php5/fpm/pool.d/www.conf',
+    require => Class['php'];
+  'fpm-pool-www-group':
+    entry  => 'www/group',
+    value  => 'vagrant',
+    target => '/etc/php5/fpm/pool.d/www.conf',
+    require => Class['php'];
+  'fpm-pool-www-catch':
+    entry  => 'www/catch_workers_output',
+    value  => 'yes',
+    target => '/etc/php5/fpm/pool.d/www.conf',
+    require => Class['php'];
 }
 
 define php_mod {
@@ -621,7 +643,9 @@ $environment_variables = {
   'LANG'   =>  { ensure => present, value => '\'ru_RU.UTF-8\'', },
 }
 
-file { "/etc/hosts":
-  ensure => present,
+create_resources(systemenv::var, $environment_variables)
+
+file { "/etc/hostname":
+  ensure => file,
   content => "cargo.dev",
 }
