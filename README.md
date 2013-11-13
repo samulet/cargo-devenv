@@ -44,6 +44,9 @@
     git clone git@github.com:MashaiMedvedi/cargo-devenv.git devenv
     ```
 
+    (На windows-машинах перед клонированием выполнить: git config --global core.autocrlf false
+     и в настройках среды установить использование юниксовских переносов строки)
+
 3. Устанавливаем конфигурацию вагранта
 
     ```
@@ -54,6 +57,7 @@
 
     ```
     vagrant up
+    vagrant reload --provision
     ```
 
 5. Переходим в каталог с клонированным проектом и устанавливаем пакеты
@@ -69,6 +73,9 @@
 
     exit
     ```
+
+    (если php composer.phar --dev install падает по таймауту, можно попробовать выполнить команду вот так:
+     php composer.phar install --prefer-dist --no-dev)
 
 6. Настраиваем хост-систему
 
