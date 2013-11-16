@@ -65,12 +65,17 @@ server:
     _prevent_empty: ''
 nginx:
     vhosts:
-        yly8jnGhjFWu:
+        public:
             server_name: cargo.dev
             www_root: /var/www/cargo/public
             listen_port: '80'
             index_files:
                 - index.html
+        api:
+            server_name: api.cargo.dev
+            www_root: /var/www/api/public
+            listen_port: '80'
+            index_files:
                 - index.php
 php:
     version: '55'
