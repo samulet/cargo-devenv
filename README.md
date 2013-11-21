@@ -67,6 +67,21 @@
 
     cd /var/www/cargo
     php composer.phar --dev install
+    ```
+
+    ```
+    vagrant reload --provision
+    vagrant ssh
+
+    cd /var/lib/mongodb
+    sudo rm mongod.lock
+    exit
+
+    vagrant reload
+    ```
+
+    ```
+    vagrant ssh
 
     cd /var/www/api
     php composer.phar --dev install
@@ -75,7 +90,7 @@
     ```
 
     (если php composer.phar --dev install падает по таймауту, можно попробовать выполнить команду вот так:
-     php composer.phar install --prefer-dist --no-dev)
+     `php composer.phar install --prefer-dist --no-dev` или `composer install --prefer-dist --no-dev`)
 
 6. Настраиваем хост-систему
 
@@ -85,6 +100,7 @@
 
     ```
     127.0.0.1	cargo.dev
+    127.0.0.1	api.cargo.dev
     ```
 
 На этом установка заканчивается. Можно проверить доступность сайта зайдя браузером по адресу http://cargo.dev:8000
