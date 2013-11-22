@@ -67,12 +67,13 @@
 
     cd /var/www/cargo
     php composer.phar --dev install
-    ```
+    exit
 
-    ```
     vagrant reload --provision
-    vagrant ssh
+    ```
 
+    ```
+    vagrant ssh
     cd /var/lib/mongodb
     sudo rm mongod.lock
     exit
@@ -90,7 +91,7 @@
     ```
 
     (если php composer.phar --dev install падает по таймауту, можно попробовать выполнить команду вот так:
-     `php composer.phar install --prefer-dist --no-dev` или `composer install --prefer-dist --no-dev`)
+     `php composer.phar install --prefer-dist --dev` или `composer install --prefer-dist --dev`)
 
 6. Настраиваем хост-систему
 
